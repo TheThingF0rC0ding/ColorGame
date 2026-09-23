@@ -1,12 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import {Pressable, StyleSheet, Text, View } from 'react-native';
+
+const ColorBlock = () => {
+  const [colour, setColour] = useState('green')
+  return(
+    <Pressable onPress = {() => {
+      console.log("press")
+    }}>
+      <view style = {[styles.ColorCube, {backgroundColor: {colour}}]}>
+        <Text>press</Text>
+      </view>
+    </Pressable>
+  );
+}
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Text>I have no idea what im doing.</Text>
-      <StatusBar style="auto" />
+      <ColorBlock />
+      <ColorBlock />
     </View>
   );
 }
@@ -18,4 +31,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  ColorCube:{
+    height:50,
+    width:50,
+    backgroundColor:"blue",
+    borderRadius:3,
+    padding:5,
+    margin:5,
+  }
 });
