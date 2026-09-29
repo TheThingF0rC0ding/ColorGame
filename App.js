@@ -1,34 +1,44 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import {Pressable, StyleSheet, Text, View } from 'react-native';
+import {Pressable, FlatList, StyleSheet, Text, View } from 'react-native';
 
 const ColorBlock = (props) => {
-  const [colourS, setColourS] = useState('green')
+  const [colourS, setColourS] = useState('green');
+  const [number, setNumber] = useState(0);
   return(
     <Pressable onPress = {() => {
-      console.log("press")
+      if(colourS =='green' || colourS == props.player){
+    setColourS('blue')
+    setNumber(number +1)
+    if(number > 2){
+        setColourS('green');
+        setNumber(0);
+    }
+
+  }
     }}>
       <View style = {[styles.ColorCube, {backgroundColor: colourS}]}>
-        <Text>0</Text>
+        <Text>{number}</Text>
       </View>
     </Pressable>
   );
 }
 
-const pressSquare = (player) =>{
-  if(colourS = "#575353" || colourS == player){
-    setColourS({player})
-
-  }
-}
 export default function App() {
+  const numCol = 5;
+  const [player, setPlayer] = useState('blue')
+  const [boxes, setBoxes] = useState([,,,,,,,,,,,,,,,,,,,,,,,,,])
   return (
     <View style={styles.container}>
-      <ColorBlock />
-      <ColorBlock />
-      <ColorBlock />
-      <ColorBlock />
-      <ColorBlock />
+      <FlatList
+        data = {boxes}
+        numColumns={numCol}
+        renderItem={(BoxData) => {
+          return(
+            <ColorBlock info = {BoxData} />
+          );
+        }}
+      />
     </View>
   );
 }
@@ -39,18 +49,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: "row",
-    flexWrap: "wrap",
   },
   ColorCube:{
-    height:175,
-    width: 175,
+    height:150,
+    width: 150,
     backgroundColor:"#575353",
-    borderRadius:3,
+    borderRadius:30,
     padding:5,
     margin:5,
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'white',
+    color: 'purple',
   }
 });
